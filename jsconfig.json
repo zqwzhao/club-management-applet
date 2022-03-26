@@ -1,0 +1,13 @@
+{
+   "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+         "@/*": ["src/*"]
+      },
+      "target": "ES5",
+      "module": "CommonJS",
+      "types": ["@dcloudio/types", "miniprogram-api-typings", "mini-types"]
+   },
+   "include": ["src/**/*"],
+   "exclude": ["node_modules"]
+}

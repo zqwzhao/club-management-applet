@@ -1,0 +1,60 @@
+{
+   "easycom": {
+      "autoscan": true,
+      "custom": {
+         "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue", // 匹配 uni
+         "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue" // 匹配 uview
+      }
+   },
+   "pages": [
+      /* 社团首页 */ { "path": "pages/home/home", "style": { "navigationBarTitleText": "社团帮", "enablePullDownRefresh": true } },
+
+      /* 加入社团 */ { "path": "pages/join/join", "style": { "navigationBarTitleText": "加入社团" } },
+      /* 社团详情 */ { "path": "pages/join/clubInfo", "style": { "navigationBarTitleText": "社团详情" } },
+      /* 申请加入 */ { "path": "pages/join/joinIn", "style": { "navigationBarTitleText": "申请加入社团" } },
+
+      /* 社团活动 */ { "path": "pages/activity/activity", "style": { "navigationBarTitleText": "社团活动" } },
+
+      /* 用户界面 */ { "path": "pages/my/my", "style": { "navigationStyle": "custom" } },
+      /* 我的社团 */ { "path": "pages/my/myClub", "style": { "navigationBarTitleText": "我的社团" } },
+      /* 用户信息 */ { "path": "pages/my/userInfo", "style": { "navigationBarTitleText": "完善信息" } }
+   ],
+   "tabBar": {
+      "color": "#7A7E83",
+      "selectedColor": "#3cc51f",
+      "borderStyle": "black",
+      "backgroundColor": "#ffffff",
+      "list": [
+         {
+            "pagePath": "pages/home/home",
+            "iconPath": "static/image/home.png",
+            "selectedIconPath": "static/image/home_a.png",
+            "text": "社团首页"
+         },
+         {
+            "pagePath": "pages/join/join",
+            "iconPath": "static/image/join.png",
+            "selectedIconPath": "static/image/join_a.png",
+            "text": "加入社团"
+         },
+         {
+            "pagePath": "pages/activity/activity",
+            "iconPath": "static/image/activity.png",
+            "selectedIconPath": "static/image/activity_a.png",
+            "text": "社团活动"
+         },
+         {
+            "pagePath": "pages/my/my",
+            "iconPath": "static/image/my.png",
+            "selectedIconPath": "static/image/my_a.png",
+            "text": "我的社团"
+         }
+      ]
+   },
+   "globalStyle": {
+      "navigationBarTextStyle": "black",
+      "navigationBarTitleText": "uni-app",
+      "navigationBarBackgroundColor": "#F8F8F8",
+      "backgroundColor": "#F8F8F8"
+   }
+}
