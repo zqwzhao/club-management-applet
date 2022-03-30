@@ -9,11 +9,11 @@
    "pages": [
       /* 社团首页 */ { "path": "pages/home/home", "style": { "navigationBarTitleText": "社团帮", "enablePullDownRefresh": true } },
 
-      /* 加入社团 */ { "path": "pages/join/join", "style": { "navigationBarTitleText": "加入社团" } },
+      /* 加入社团 */ { "path": "pages/join/join", "style": { "navigationBarTitleText": "社团中心" } },
       /* 社团详情 */ { "path": "pages/join/clubInfo", "style": { "navigationBarTitleText": "社团详情" } },
       /* 申请加入 */ { "path": "pages/join/joinIn", "style": { "navigationBarTitleText": "申请加入社团" } },
 
-      /* 社团活动 */ { "path": "pages/activity/activity", "style": { "navigationBarTitleText": "社团活动" } },
+      /* 社团活动 */ { "path": "pages/activity/activity", "style": { "navigationBarTitleText": "活动广场" } },
 
       /* 用户界面 */ { "path": "pages/my/my", "style": { "navigationStyle": "custom" } },
       /* 我的社团 */ { "path": "pages/my/myClub", "style": { "navigationBarTitleText": "我的社团" } },
@@ -35,13 +35,13 @@
             "pagePath": "pages/join/join",
             "iconPath": "static/image/join.png",
             "selectedIconPath": "static/image/join_a.png",
-            "text": "加入社团"
+            "text": "社团中心"
          },
          {
             "pagePath": "pages/activity/activity",
             "iconPath": "static/image/activity.png",
             "selectedIconPath": "static/image/activity_a.png",
-            "text": "社团活动"
+            "text": "活动广场"
          },
          {
             "pagePath": "pages/my/my",

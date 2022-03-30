@@ -20,10 +20,21 @@
       <view class="myClub cardShadow">
          <view class="myClubTop">
             <text>我的社团</text>
-            <view @click="mix_jumpUrl('/pages/my/myClub', { index: 1 })">
+            <!--    <view @click="mix_jumpUrl('/pages/my/myClub', { index: 1 })">
                <text>全部社团</text>
                <view class="arr"><u-icon class="arr" name="arrow-right" size="18" color="#333333"></u-icon></view>
+            </view> -->
+         </view>
+         <view class="myClubBody">
+            <view class="item" v-for="(item, index) in clubTabList" :key="index" @click="mix_jumpUrl('/pages/my/myClub', { index: item.index })">
+               <view class="img"><image :src="item.img" mode="widthFix" /></view>
+               <text>{{ item.name }}</text>
             </view>
+         </view>
+      </view>
+      <view class="myClub cardShadow">
+         <view class="myClubTop">
+            <text>我的活动</text>
          </view>
          <view class="myClubBody">
             <view class="item" v-for="(item, index) in clubTabList" :key="index">
@@ -38,12 +49,12 @@
          </view>
          <view class="serveList">
             <view class="item">
-               <image src="" mode="widthFix" />
+               <image :src="require('@/static/image/people.svg')" mode="widthFix" />
                <text>我的信息</text>
             </view>
             <view v-if="isLogin" class="item">
-               <image src="" mode="widthFix" />
-               <text>推出系统</text>
+               <image :src="require('@/static/image/logout.svg')" mode="widthFix" />
+               <text>退出系统</text>
             </view>
          </view>
       </view>
@@ -63,9 +74,14 @@ export default {
          },
          isLogin: true,
          clubTabList: [
-            { name: "已加入", img: "" },
-            { name: "待审核", img: "" },
-            { name: "已拒绝", img: "" },
+            { name: "已加入", index: 1, img: require("@/static/image/afferent.svg") },
+            { name: "待审核", index: 2, img: require("@/static/image/audit.svg") },
+            { name: "已拒绝", index: 3, img: require("@/static/image/abnormal.svg") },
+         ],
+         activityTabList: [
+            { name: "已加入", index: 1, img: require("@/static/image/afferent.svg") },
+            { name: "待审核", index: 2, img: require("@/static/image/audit.svg") },
+            { name: "已拒绝", index: 3, img: require("@/static/image/abnormal.svg") },
          ],
       };
    },
@@ -169,15 +185,17 @@ export default {
          justify-content: space-around;
          .item {
             width: 100rpx;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
             .img {
-               width: 100rpx;
-               height: 100rpx;
+               width: 80rpx;
+               height: 80rpx;
                display: flex;
                align-items: center;
                justify-content: center;
-               border-radius: 50%;
-               overflow: hidden;
-               margin: 10px 0;
+               margin: 20rpx 0 10rpx 0;
                image {
                   width: 100%;
                   height: 100%;
@@ -214,10 +232,15 @@ export default {
          justify-content: space-around;
          .item {
             min-width: 100rpx;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
             image {
-               width: 100rpx;
-               height: 100rpx;
+               width: 80rpx;
+               height: 80rpx;
                vertical-align: top;
+               margin-bottom: 10rpx;
             }
             text {
                font-size: 14px;
