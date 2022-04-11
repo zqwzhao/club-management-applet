@@ -1,18 +1,18 @@
 import axios from "axios";
 
 // 根据环境修改baseURL
-const baseURL = (() => {
-   let { VUE_APP_PLATFORM } = process.env;
-   if (VUE_APP_PLATFORM === "app-plus") {
-      return "http://yang.guco.vip:2001";
-   } else {
-      return "/api";
-   }
-})();
+// const baseURL = (() => {
+//    let { VUE_APP_PLATFORM } = process.env;
+//    if (VUE_APP_PLATFORM === "app-plus") {
+//       return "http://120.55.80.30:8080";
+//    } else {
+//       return "/api";
+//    }
+// })();
 
 // create an axios instance
 const instance = axios.create({
-   baseURL, // url = base url + request url
+   baseURL: "http://rcrxy.ren:8080", // url = base url + request url
    // withCredentials: true, // send cookies when cross-domain requests 注意：withCredentials和后端配置的cross跨域不可同时使用
    timeout: 10000, // request timeout
    // crossDomain: true,
@@ -47,7 +47,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
    response => {
       if (response.data.code !== 200) {
-         console.log(response);
          uni.showModal({
             content: response.data.message,
             showCancel: false,

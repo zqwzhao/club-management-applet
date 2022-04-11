@@ -1,30 +1,28 @@
 import { get, post } from "@/uitls/axios.js";
 
+
+/* 登录 */
+export function login_API(params) {
+   return post("/club-management/app/login", params);
+}
+
+export function signIn_API(params) {
+   return post("/club-management/app/register", params);
+}
+
 /**获取轮播图 */
 export function getSwiperListAPI() {
-   return ["https://cdn.uviewui.com/uview/swiper/swiper3.png", "https://cdn.uviewui.com/uview/swiper/swiper2.png", "https://cdn.uviewui.com/uview/swiper/swiper1.png"];
+   return get("/club-management/api/slide/applet/list");
 }
 
 /**获取活动列表 */
-export function getNewsListAPI() {
-   return [
-      { img: "https://cdn.uviewui.com/uview/swiper/swiper3.png", title: "第一条活动标题，劲才精彩！精彩！精彩！精彩！精彩！精彩！精彩！精彩！精彩！最多两行内容，轻微加粗", summary: "简介简洁简介内容，这是简介的内容，更小略带透明的字体，超过长度显示为省略号，一个有点长的简介" },
-      { img: "https://cdn.uviewui.com/uview/swiper/swiper3.png", title: "第二条活动标题，劲才精彩！精彩！精彩！精彩！精彩！精彩！精彩！精彩！精彩！最多两行内容，轻微加粗", summary: "简介简洁简介内容，这是简介的内容，更小略带透明的字体，超过长度显示为省略号，一个有点长的简介" },
-   ];
+export function getNewsListAPI(params) {
+   return get("/club-management/api/activity/applet/page", params)
 }
 
 /**获取社团列表 */
-export function getClubListAPI() {
-   return [
-      { id: "1", name: "社团 1", category: "分类 1", department: "生态系", joinNumber: 10, watchNum: 300, img: "https://cdn.uviewui.com/uview/goods/1.jpg" },
-      { id: "2", name: "社团 2", category: "分类 2", department: "生态系", joinNumber: 11, watchNum: 301, img: "https://cdn.uviewui.com/uview/goods/2.jpg" },
-      { id: "1", name: "社团 3", category: "分类 3", department: "生态系", joinNumber: 12, watchNum: 302, img: "https://cdn.uviewui.com/uview/goods/6.jpg" },
-      { id: "2", name: "社团 4", category: "分类 4", department: "生态系", joinNumber: 13, watchNum: 303, img: "https://cdn.uviewui.com/uview/goods/5.jpg" },
-      { id: "1", name: "社团 5", category: "分类 5", department: "生态系", joinNumber: 14, watchNum: 304, img: "https://cdn.uviewui.com/uview/goods/2.jpg" },
-      { id: "2", name: "社团 6", category: "分类 6", department: "生态系", joinNumber: 15, watchNum: 305, img: "https://cdn.uviewui.com/uview/goods/3.jpg" },
-      { id: "1", name: "社团 7", category: "分类 7", department: "生态系", joinNumber: 16, watchNum: 306, img: "https://cdn.uviewui.com/uview/goods/4.jpg" },
-      { id: "2", name: "社团 8", category: "分类 8", department: "生态系", joinNumber: 17, watchNum: 307, img: "https://cdn.uviewui.com/uview/goods/1.jpg" },
-   ];
+export function getClubListAPI(params) {
+   return get("/club-management/api/club/applet/page", params)
 }
 
 /**获取社团信息 */

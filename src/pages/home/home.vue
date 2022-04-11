@@ -19,19 +19,9 @@
          <u-scroll-list :indicator="false">
             <view class="scrollList">
                <view class="scrollListItem" v-for="(item, index) in scrollList" :key="index" @click="mix_jumpUrl('/pages/join/clubInfo', item)">
-                  <image mode="widthFix" :src="item.img"></image>
+                  <image mode="widthFix" :src="item.clubLogo"></image>
                   <view class="easyInfo">
-                     <text class="name">{{ item.name }}</text>
-                     <view class="number">
-                        <view class="number_left">
-                           <u-icon name="checkmark-circle" color="#333333" size="12"></u-icon>
-                           <text>{{ item.joinNumber }}</text>
-                        </view>
-                        <view class="number_right">
-                           <u-icon name="eye" color="#333333" size="12"></u-icon>
-                           <text>{{ item.watchNum }}</text>
-                        </view>
-                     </view>
+                     <text class="name">{{ item.clubName }}</text>
                   </view>
                </view>
             </view>
@@ -55,10 +45,10 @@
 
       <view class="newActivity">
          <view class="newsItem" v-for="(item, index) in newsList" :key="index">
-            <image :src="item.img" mode="widthFix" />
+            <image v-if="Boolean(item.activityImage)" :src="item.img" mode="widthFix" />
             <view>
-               <text class="title">{{ item.title }}</text>
-               <text class="summary">{{ item.summary }}</text>
+               <text class="title">{{ item.activityName }}</text>
+               <text class="summary">{{ item.activityDescribe }}</text>
             </view>
          </view>
       </view>
@@ -81,16 +71,32 @@ export default {
       this.getNewsList();
    },
    methods: {
-      async getSwiperList() {
-         this.swiperList = getSwiperListAPI();
+      getSwiperList() {
+         getSwiperListAPI().then(({ code, page: { list } }) => {
+            if (code === 0 || code === 200) {
+               list.forEach(item => {
+                  this.swiperList.push(item.imageUrl);
+               });
+            }
+         });
       },
 
-      async getNewsList() {
-         this.newsList = getNewsListAPI();
+      getClubList() {
+         getClubListAPI().then(({ code, page: { list } }) => {
+            if (code === 0 || code === 200) {
+               console.log(list);
+               this.scrollList = list;
+            }
+         });
       },
 
-      async getClubList() {
-         this.scrollList = getClubListAPI();
+      getNewsList() {
+         getNewsListAPI().then(({ code, page: { list } }) => {
+            if (code === 0 || code === 200) {
+               this.newsList = list;
+               console.log(this.newsList);
+            }
+         });
       },
    },
 };
@@ -143,8 +149,8 @@ export default {
 
          .scrollListItem {
             margin: 5px;
-            width: 190rpx;
-            height: 260rpx;
+            width: 220rpx;
+            height: 250rpx;
             display: flex;
             flex-flow: column nowrap;
             align-items: center;
@@ -173,26 +179,6 @@ export default {
                   width: inherit;
                   overflow: hidden;
                }
-               .number {
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  width: 100%;
-                  padding: 0 10rpx 5rpx 10rpx;
-                  box-sizing: border-box;
-                  > view {
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-
-                     text {
-                        font-size: 25rpx;
-                        color: rgba($color: #000000, $alpha: 0.4);
-                        display: block;
-                        margin-left: 5rpx;
-                     }
-                  }
-               }
             }
          }
       }
@@ -207,6 +193,10 @@ export default {
          display: flex;
          align-items: center;
          justify-content: space-between;
+         border-radius: 5rpx;
+         box-shadow: 0 0 5px 1px rgba($color: #000000, $alpha: 0.1);
+         box-sizing: border-box;
+         padding: 5px;
       }
       image {
          width: 160rpx;

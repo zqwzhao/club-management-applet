@@ -2,7 +2,7 @@
    <view class="mainBox">
       <view class="bg"><image src="../../static/image/bg.jpg" mode="aspectFill" /></view>
       <view class="userInfo">
-         <view class="nullUser" v-if="!isLogin">
+         <view class="nullUser" v-if="!isLogin" @click="mix_jumpUrl('/pages/common/login')">
             <image src="../../static/image/nullUser.png" mode="widthFix" />
             <text>登录/注册</text>
          </view>
@@ -61,18 +61,15 @@
    </view>
 </template>
 
-<script lang="ts">
+<script>
+import { mapState } from "vuex";
+
 export default {
    data() {
       return {
          src: "http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg",
          userName: "登录/注册",
-         userInfo: {
-            name: "111",
-            phone: "155563596547",
-            avatar: "",
-         },
-         isLogin: true,
+         isLogin: false,
          clubTabList: [
             { name: "已加入", index: 1, img: require("@/static/image/afferent.svg") },
             { name: "待审核", index: 2, img: require("@/static/image/audit.svg") },
@@ -85,6 +82,16 @@ export default {
          ],
       };
    },
+   computed: {
+      ...mapState({
+         token: state => state.token,
+         userInfo: state => state.userInfo,
+      }),
+   },
+   onLoad() {
+      this.isLogin = Boolean(this.token) || false;
+   },
+   methods: {},
 };
 </script>
 

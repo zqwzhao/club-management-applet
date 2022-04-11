@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App";
+import store from "./store"
 
 Vue.config.productionTip = false;
 
@@ -11,4 +12,4 @@ Vue.use(uView);
 import mixin from "./mixins/mixin";
 Vue.use(mixin);
 
-new Vue({ ...App }).$mount();
+new Vue({ ...App, store }).$mount();

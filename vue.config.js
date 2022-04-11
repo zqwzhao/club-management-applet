@@ -42,7 +42,12 @@ module.exports = {
          ];
          return args;
       });
-      config.resolve.alias.set("@", resolve("src")).set("com", resolve("src/components")).set("pages", resolve("src/pages")).set("static", resolve("src/static"));
+      config.resolve.alias
+         .set("@", resolve("src"))
+         .set("@com", resolve("src/components"))
+         .set("@pages", resolve("src/pages"))
+         .set("@static", resolve("src/static"))
+         .set("@service", resolve("src/service"));
    },
    transpileDependencies: ["uview-ui"],
 };
