@@ -84,17 +84,15 @@ export default {
       getClubList() {
          getClubListAPI().then(({ code, page: { list } }) => {
             if (code === 0 || code === 200) {
-               console.log(list);
                this.scrollList = list;
             }
          });
       },
 
       getNewsList() {
-         getNewsListAPI().then(({ code, page: { list } }) => {
+         getNewsListAPI({ curPage: 1, limit: 3 }).then(({ code, page: { list } }) => {
             if (code === 0 || code === 200) {
                this.newsList = list;
-               console.log(this.newsList);
             }
          });
       },
