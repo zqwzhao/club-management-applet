@@ -19,7 +19,9 @@
 </template>
 
 <script>
-import { login_API } from "@service/api";
+import { login_API, getUserInfo_API } from "@service/api";
+import { mapMutations } from "vuex";
+
 export default {
    data() {
       return {
@@ -37,12 +39,22 @@ export default {
          },
       };
    },
+
    methods: {
+      ...mapMutations(["setToken", "setUserInfo"]),
       login() {
          this.$refs.form.validate().then(status => {
             if (status) {
-               login_API(this.form).then(res => {
-                  console.log(res);
+               const res = login_API(this.form);
+               if (res.code === 0 || res.code === 200) {
+                  this.setToken(res.token);
+               }
+               getUserInfo_API().then(res => {
+                  const { code, accountVo } = res;
+                  if (code === 0 || code === 200) {
+                     this.setUserInfo(accountVo);
+                     this.mix_jumpUrl("pages/home/home");
+                  }
                });
             }
          });

@@ -12,7 +12,7 @@
       </view>
       <view class="pageTopPlace"></view>
       <u-list @scrolltolower="scrolltolower">
-         <u-list-item v-for="(item, index) in list" :key="index" @click="mix_jumpUrl('/pages/join/clubInfo', item)">
+         <u-list-item v-for="(item, index) in list" :key="index">
             <view class="clubItem">
                <image :src="item.clubLogo" mode="widthFix" />
                <view class="clubItem_info">
@@ -21,7 +21,7 @@
                   <view class="department">{{ item.department }}</view>
                </view>
                <view class="join">
-                  <u-button type="primary" text="加入社团" size="mini"></u-button>
+                  <u-button type="primary" text="加入社团" size="mini" @click="mix_jumpUrl('/pages/join/clubInfo', item)"></u-button>
                   <text>
                      已加入
                      <text class="num">{{ item.joinNumber }}</text>
@@ -72,7 +72,6 @@ export default {
 
       handlerBulr({ detail: { value } }) {
          if (!value) {
-            console.log(1);
             this.getClubList();
          }
       },
@@ -83,7 +82,6 @@ export default {
                this.list = page.list;
                this.currPage = page.currPage;
                this.totalPage = page.totalPage;
-               console.log(this.list);
             }
          });
       },

@@ -1,14 +1,13 @@
 <template>
    <view class="mainBox">
-      <image class="bgimg" src="" mode="" />
+      <image class="bgimg" :src="clubInfo.logo" mode="aspectFill" />
       <view class="introduce">
          <view class="nameBox cardShadow">
             <view class="nameBox_left">
-               <text class="name">{{ clubInfo.name }}</text>
+               <text class="name">{{ clubInfo.clubName }}</text>
                <text class="joinNum">
-                  已有
-                  <text>{{ clubInfo.joinNumber }}</text>
-                  人加入社团
+                  社团QQ群：
+                  <text>{{ clubInfo.clubQq }}</text>
                </text>
             </view>
             <view class="nameBox_right">
@@ -18,26 +17,22 @@
          </view>
          <text class="subjection">
             社团分类：
-            <text>{{ clubInfo.category }}</text>
+            <text>{{ clubInfo.clubType }}</text>
          </text>
          <text class="subjection">
             管理部门：
-            <text>{{ clubInfo.department }}</text>
+            <text>{{ clubInfo.clubInstitute }}</text>
          </text>
          <view class="columnTitle" enable-flex="true">
             <view class="leftLine"></view>
             <text>社团介绍</text>
          </view>
-         <text class="introduceText">{{ clubInfo.introduce }}</text>
+         <text class="introduceText">{{ clubInfo.clubDescribe }}</text>
       </view>
       <view class="bottomBox">
-         <view class="iconBox">
-            <u-icon name="home" color="#333333" size="20"></u-icon>
+         <view class="iconBox" @click="mix_jumpUrl('/pages/home/home')">
+            <u-icon name="home" color="#333333" size="24"></u-icon>
             <text>首页</text>
-         </view>
-         <view class="iconBox">
-            <u-icon name="home" color="#333333" size="20"></u-icon>
-            <text>分享</text>
          </view>
          <view class="buttonBox" @click="mix_jumpUrl('/pages/join/joinIn', clubId)">
             <u-button text="立即加入社团" type="primary" shape="circle" size="small"></u-button>
@@ -47,7 +42,7 @@
 </template>
 
 <script>
-import { getClubInfoAPI } from "@/service/api";
+import { getClubInfo_API } from "@/service/api";
 export default {
    data() {
       return {
@@ -56,14 +51,19 @@ export default {
       };
    },
    onLoad(params = {}) {
-      const { id } = params;
-      this.clubId = id;
-      this.getClubInfo(id);
+      const { clubId } = params;
+      this.clubId = clubId;
+      this.clubInfo = params;
+      console.log(this.clubInfo);
+      // this.getClubInfo(clubId);
    },
    methods: {
-      async getClubInfo(id) {
-         const info = getClubInfoAPI({ id });
-         this.clubInfo = info;
+      getClubInfo(clubId) {
+         // const info = getClubInfo_API({ clubId });
+         // this.clubInfo = info;
+         // console.log(this.clubInfo);
+
+         this.clubInfo;
       },
    },
 };
@@ -105,10 +105,10 @@ export default {
             }
             .joinNum {
                font-size: 12px;
-               color: #333333;
+               color: rgba($color: #000000, $alpha: 0.75);
                text {
-                  color: red;
-                  font-size: 15px;
+                  color: #000000;
+                  font-size: 13px;
                }
             }
          }
@@ -163,6 +163,7 @@ export default {
    .bottomBox {
       width: 100vw;
       height: 125rpx;
+      padding: 0 50rpx;
       border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
       box-sizing: border-box;
       display: flex;

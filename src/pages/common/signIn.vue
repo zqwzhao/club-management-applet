@@ -58,7 +58,9 @@ export default {
          this.$refs.form.validate().then(status => {
             if (status) {
                signIn_API(this.form).then(res => {
-                  console.log(res);
+                  if (res.code === 0 || res.code === 200) {
+                     uni.mix_jumpUrl("/pages/common/login");
+                  }
                });
             }
          });
