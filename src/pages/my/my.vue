@@ -10,8 +10,8 @@
             <view class="info">
                <image :src="userInfo.avatar" mode="aspectFit" />
                <view>
-                  <text class="name">{{ userInfo.name }}</text>
-                  <text class="phone">{{ userInfo.phone }}</text>
+                  <text class="name">{{ userInfo.nickName }}</text>
+                  <text class="phone">{{ userInfo.mobile }}</text>
                </view>
             </view>
             <u-icon class="arr" name="arrow-right" size="24" color="#FFFFFF"></u-icon>
@@ -20,10 +20,6 @@
       <view class="myClub cardShadow">
          <view class="myClubTop">
             <text>我的社团</text>
-            <!--    <view @click="mix_jumpUrl('/pages/my/myClub', { index: 1 })">
-               <text>全部社团</text>
-               <view class="arr"><u-icon class="arr" name="arrow-right" size="18" color="#333333"></u-icon></view>
-            </view> -->
          </view>
          <view class="myClubBody">
             <view class="item" v-for="(item, index) in clubTabList" :key="index" @click="mix_jumpUrl('/pages/my/myClub', { index: item.index })">

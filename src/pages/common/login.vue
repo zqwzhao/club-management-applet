@@ -48,14 +48,15 @@ export default {
                const res = login_API(this.form);
                if (res.code === 0 || res.code === 200) {
                   this.setToken(res.token);
+
+                  getUserInfo_API(res.accountId).then(res => {
+                     const { code, account } = res;
+                     if (code === 0 || code === 200) {
+                        this.setUserInfo(account);
+                        this.mix_jumpUrl("pages/home/home");
+                     }
+                  });
                }
-               getUserInfo_API().then(res => {
-                  const { code, accountVo } = res;
-                  if (code === 0 || code === 200) {
-                     this.setUserInfo(accountVo);
-                     this.mix_jumpUrl("pages/home/home");
-                  }
-               });
             }
          });
       },

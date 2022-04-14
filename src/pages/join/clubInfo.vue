@@ -7,12 +7,8 @@
                <text class="name">{{ clubInfo.clubName }}</text>
                <text class="joinNum">
                   社团QQ群：
-                  <text>{{ clubInfo.clubQq }}</text>
+                  <text user-select="true">{{ clubInfo.clubQq }}</text>
                </text>
-            </view>
-            <view class="nameBox_right">
-               <u-icon name="eye-fill" color="#606266" size="14"></u-icon>
-               <text>{{ clubInfo.watchNum }}</text>
             </view>
          </view>
          <text class="subjection">
@@ -34,7 +30,7 @@
             <u-icon name="home" color="#333333" size="24"></u-icon>
             <text>首页</text>
          </view>
-         <view class="buttonBox" @click="mix_jumpUrl('/pages/join/joinIn', clubId)">
+         <view class="buttonBox" @click="joinClub">
             <u-button text="立即加入社团" type="primary" shape="circle" size="small"></u-button>
          </view>
       </view>
@@ -53,17 +49,23 @@ export default {
    onLoad(params = {}) {
       const { clubId } = params;
       this.clubId = clubId;
-      this.clubInfo = params;
-      console.log(this.clubInfo);
-      // this.getClubInfo(clubId);
+      this.getClubInfo(clubId);
    },
    methods: {
       getClubInfo(clubId) {
-         // const info = getClubInfo_API({ clubId });
-         // this.clubInfo = info;
-         // console.log(this.clubInfo);
+         const { code, club } = getClubInfo_API(clubId);
+         if (code === 0 || code === 200) {
+            this.clubInfo = club;
+         }
+      },
 
-         this.clubInfo;
+      joinClub() {
+         const token = this.$store.state.token;
+         if (token) {
+            this.mix_jumpUrl("/pages/join/joinIn", { clubId: this.clubId });
+         } else {
+            this.mix_jumpUrl("/pages/common/login");
+         }
       },
    },
 };

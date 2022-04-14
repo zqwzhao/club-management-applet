@@ -12,13 +12,13 @@ export function signIn_API(params) {
 }
 
 /**获取信息 */
-export function getUserInfo_API() {
-   return post("/club-management/app/get");
+export function getUserInfo_API(params) {
+   return post(`/club-management/app/get/${params}`);
 }
 
 /**获取社团信息 */
 export function getClubInfo_API(params) {
-   return
+   return post(`/club-management/api/club/applet/info/${params}`)
 }
 
 /**获取轮播图 */
