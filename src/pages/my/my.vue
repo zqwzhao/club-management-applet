@@ -22,7 +22,7 @@
             <text>我的社团</text>
          </view>
          <view class="myClubBody">
-            <view class="item" v-for="(item, index) in clubTabList" :key="index" @click="mix_jumpUrl('/pages/my/myClub', { index: item.index })">
+            <view class="item" v-for="(item, index) in clubTabList" :key="index" @click="jumpUrl('/pages/my/myClub', item)">
                <view class="img"><image :src="item.img" mode="widthFix" /></view>
                <text>{{ item.name }}</text>
             </view>
@@ -33,7 +33,7 @@
             <text>我的活动</text>
          </view>
          <view class="myClubBody">
-            <view class="item" v-for="(item, index) in clubTabList" :key="index">
+            <view class="item" v-for="(item, index) in activityTabList" :key="index" @click="jumpUrl('/pages/my/myActivity', item)">
                <view class="img"><image :src="item.img" mode="widthFix" /></view>
                <text>{{ item.name }}</text>
             </view>
@@ -67,14 +67,14 @@ export default {
          userName: "登录/注册",
          isLogin: false,
          clubTabList: [
-            { name: "已加入", index: 1, img: require("@/static/image/afferent.svg") },
-            { name: "待审核", index: 2, img: require("@/static/image/audit.svg") },
-            { name: "已拒绝", index: 3, img: require("@/static/image/abnormal.svg") },
+            { name: "已加入", index: 0, img: require("@/static/image/afferent.svg") },
+            { name: "未审核", index: 1, img: require("@/static/image/audit.svg") },
+            { name: "已结束", index: 2, img: require("@/static/image/abnormal.svg") },
          ],
          activityTabList: [
-            { name: "已加入", index: 1, img: require("@/static/image/afferent.svg") },
-            { name: "待审核", index: 2, img: require("@/static/image/audit.svg") },
-            { name: "已拒绝", index: 3, img: require("@/static/image/abnormal.svg") },
+            { name: "已加入", index: 0, img: require("@/static/image/afferent.svg") },
+            { name: "未审核", index: 1, img: require("@/static/image/audit.svg") },
+            { name: "已结束", index: 2, img: require("@/static/image/abnormal.svg") },
          ],
       };
    },
@@ -87,7 +87,24 @@ export default {
    onLoad() {
       this.isLogin = Boolean(this.token) || false;
    },
-   methods: {},
+   methods: {
+      jumpUrl(url = "", obj = {}) {
+         const token = this.$store.state.token;
+         const userInfo = this.$store.state.userInfo;
+         console.log(token, userInfo);
+         if (Boolean(token) && Boolean(userInfo)) {
+            this.mix_jumpUrl(url, obj);
+         } else {
+            uni.showModal({
+               title: "提示",
+               content: "尚未登录，是否登录？",
+               success: ({ confirm }) => {
+                  if (confirm) this.mix_jumpUrl("/pages/common/login");
+               },
+            });
+         }
+      },
+   },
 };
 </script>
 

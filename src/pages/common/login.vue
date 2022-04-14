@@ -49,7 +49,7 @@ export default {
                if (res.code === 0 || res.code === 200) {
                   this.setToken(res.token);
 
-                  getUserInfo_API(res.accountId).then(res => {
+                  getUserInfo_API({ accountId: res.accountId }).then(res => {
                      const { code, account } = res;
                      if (code === 0 || code === 200) {
                         this.setUserInfo(account);

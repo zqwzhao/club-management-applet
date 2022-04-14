@@ -5,15 +5,11 @@
       </view>
       <u-list class="content" height="calc(100vh - 44px)">
          <u-list-item v-for="(item, index) in contentList" :key="index">
-            <view class="clubItem">
-               <image :src="item.clubLogo" mode="widthFix" />
-               <view class="clubItem_info">
-                  <view class="name">{{ item.clubName }}</view>
-                  <view class="category">{{ item.category }}</view>
-                  <view class="department">{{ item.department }}</view>
-               </view>
-               <view class="join">
-                  <u-button type="primary" text="加入社团" size="mini" @click="mix_jumpUrl('/pages/join/clubInfo', item)"></u-button>
+            <view class="newsItem">
+               <image :src="item.img" mode="widthFix" />
+               <view class="itemInfo">
+                  <text class="title">{{ item.activityName }}</text>
+                  <text class="summary">{{ item.activityDescribe }}</text>
                </view>
             </view>
          </u-list-item>
@@ -29,7 +25,7 @@
 </template>
 
 <script>
-import { getJoinedClub_API, getAuditClub_API, getEndClub_API } from "@/service/api";
+import { getJoinedActivity_API, getAuditActivity_API, getEndActivity_API } from "@/service/api";
 
 export default {
    data() {
@@ -57,13 +53,13 @@ export default {
          var method = () => {};
          switch (index) {
             case 0:
-               method = getJoinedClub_API;
+               method = getJoinedActivity_API;
                break;
             case 1:
-               method = getAuditClub_API;
+               method = getAuditActivity_API;
                break;
             case 2:
-               method = getEndClub_API;
+               method = getEndActivity_API;
                break;
          }
          const accountId = this.$store.state.userInfo.accountId;
@@ -88,47 +84,45 @@ export default {
       width: 100vw;
       flex-shrink: 0;
    }
-
-   .clubItem {
-      padding: 5px 5vw;
+   .newsItem {
+      width: 100%;
+      margin: auto;
+      box-sizing: border-box;
+      padding: 20rpx 6vw;
+      border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
       display: flex;
       align-items: center;
       justify-content: space-between;
       image {
          width: 160rpx;
-         height: auto;
+         height: 100rpx;
+         vertical-align: top;
          flex-shrink: 0;
-         margin-right: 10px;
+         margin-right: 7px;
       }
-      .clubItem_info {
+      .itemInfo {
          flex: 1;
-         align-self: stretch;
-         .name {
-            font-weight: 500;
-            font-size: 14px;
-            margin: 3px 0;
+         .title {
+            display: block;
+            max-width: 100%;
+            font-size: 28rpx;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
          }
-         .category {
-            font-size: 12px;
+         .summary {
+            max-width: 100%;
+            font-size: 26rpx;
             color: #333333;
-            margin: 1px 0;
-         }
-         .department {
-            font-size: 12px;
-            color: #333333;
-            margin: 1xp 0;
-         }
-      }
-      .join {
-         flex-shrink: 0;
-         text {
-            font-size: 11px;
-            color: #333333;
-            .num {
-               font-size: 12px;
-               color: red;
-               font-weight: 700;
-            }
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            opacity: 0.75;
          }
       }
    }

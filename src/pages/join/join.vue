@@ -22,11 +22,6 @@
                </view>
                <view class="join">
                   <u-button type="primary" text="加入社团" size="mini" @click="mix_jumpUrl('/pages/join/clubInfo', item)"></u-button>
-                  <text>
-                     已加入
-                     <text class="num">{{ item.joinNumber }}</text>
-                     人
-                  </text>
                </view>
             </view>
          </u-list-item>

@@ -18,6 +18,7 @@
       /* 用户界面 */ { "path": "pages/my/my", "style": { "navigationStyle": "custom" } },
       /* 我的社团 */ { "path": "pages/my/myClub", "style": { "navigationBarTitleText": "我的社团" } },
       /* 用户信息 */ { "path": "pages/my/userInfo", "style": { "navigationBarTitleText": "完善信息" } },
+      /* 我的活动 */ { "path": "pages/my/myActivity", "style": { "navigationBarTitleText": "我的活动" } },
 
       /* 登录 */ { "path": "pages/common/login", "style": { "navigationBarTitleText": "登录", "navigationStyle": "custom" } },
       /* 注册 */ { "path": "pages/common/signIn", "style": { "navigationBarTitleText": "注册", "navigationStyle": "custom" } }

@@ -1,5 +1,5 @@
 import { get, post } from "@/uitls/axios.js";
-
+import qs from "qs";
 
 /* 登录 */
 export function login_API(params) {
@@ -13,7 +13,7 @@ export function signIn_API(params) {
 
 /**获取信息 */
 export function getUserInfo_API(params) {
-   return post(`/club-management/app/get/${params}`);
+   return post(`/club-management/app/account/applet/info`, qs.stringify(params));
 }
 
 /**获取社团信息 */
@@ -36,4 +36,32 @@ export function getClubListAPI(params) {
    return get("/club-management/api/club/applet/page", params)
 }
 
+/**已参加的活动 */
+export function getJoinedActivity_API(params) {
+   return post("/club-management/api/activity/applet/already/join", qs.stringify(params));
+}
 
+/**未审核的活动 */
+export function getAuditActivity_API(params) {
+   return post("/club-management/api/activity/applet/not/audit", qs.stringify(params));
+}
+
+/**已拒绝的活动 */
+export function getEndActivity_API(params) {
+   return post("/club-management/api/activity/applet/already/refuse", qs.stringify(params));
+}
+
+/**已加入的社团 */
+export function getJoinedClub_API(params) {
+   return post("/club-management/api/club/applet/already/join", qs.stringify(params));
+}
+
+/**未审核的社团 */
+export function getAuditClub_API(params) {
+   return post("/club-management/api/club/applet/not/audit", qs.stringify(params));
+}
+
+/**已拒绝的社团 */
+export function getEndClub_API(params) {
+   return post("/club-management/api/club/applet/already/refuse", qs.stringify(params));
+}
