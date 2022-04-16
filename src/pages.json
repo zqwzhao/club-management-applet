@@ -14,6 +14,7 @@
       /* 申请加入 */ { "path": "pages/join/joinIn", "style": { "navigationBarTitleText": "申请加入社团" } },
 
       /* 社团活动 */ { "path": "pages/activity/activity", "style": { "navigationBarTitleText": "活动广场" } },
+      /* 活动信息 */ { "path": "pages/activity/activityInfo", "style": { "navigationBarTitleText": "活动详情" } },
 
       /* 用户界面 */ { "path": "pages/my/my", "style": { "navigationStyle": "custom" } },
       /* 我的社团 */ { "path": "pages/my/myClub", "style": { "navigationBarTitleText": "我的社团" } },

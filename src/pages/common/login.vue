@@ -6,7 +6,7 @@
             <u--input ref="studentNumber" v-model="form.studentNumber" placeholder="学号" border="surround" shape="circle" prefixIcon="account-fill" :prefixIconStyle="prefixIconStyle"></u--input>
          </u-form-item>
          <u-form-item prop="password">
-            <u--input ref="password" v-model="form.password" placeholder="密码" border="surround" shape="circle" prefixIcon="lock-fill" :prefixIconStyle="prefixIconStyle"></u--input>
+            <u--input ref="password" v-model="form.password" type="password" placeholder="密码" border="surround" shape="circle" prefixIcon="lock-fill" :prefixIconStyle="prefixIconStyle"></u--input>
          </u-form-item>
          <u-form-item>
             <view class="bottom">
@@ -26,8 +26,8 @@ export default {
    data() {
       return {
          form: {
-            studentNumber: "20122002066",
-            password: "159357",
+            studentNumber: null,
+            password: null,
          },
          formRules: {
             studentNumber: { type: "string", required: true, message: "请输入学号", trigger: ["blur", "change"] },
@@ -39,7 +39,10 @@ export default {
          },
       };
    },
-
+   onShow() {
+      uni.clearStorage();
+      uni.clearStorageSync();
+   },
    methods: {
       ...mapMutations(["setToken", "setUserInfo"]),
       login() {

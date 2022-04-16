@@ -19,6 +19,12 @@
                <u-radio label="女" name="女" value="女"></u-radio>
             </u-radio-group>
          </u-form-item>
+         <u-form-item label="系别" prop="studentName">
+            <u-input v-model="form.institute" border="none"></u-input>
+         </u-form-item>
+         <u-form-item label="班级" prop="studentName">
+            <u-input v-model="form.major" border="none"></u-input>
+         </u-form-item>
       </u-form>
    </view>
 </template>

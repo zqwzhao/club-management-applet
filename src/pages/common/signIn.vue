@@ -3,22 +3,22 @@
       <text class="title">注册</text>
       <u--form ref="form" labelPosition="left" :model="form" :rules="formRules" :borderBottom="false" errorType="toast">
          <u-form-item prop="studentNumber">
-            <u--input v-model="form.studentNumber" placeholder="姓名" border="surround" shape="circle" prefixIcon="account-fill"></u--input>
+            <u--input v-model="form.studentName" placeholder="姓名" border="surround" shape="circle" prefixIcon="account-fill"></u--input>
          </u-form-item>
          <u-form-item prop="studentNumber">
             <u--input v-model="form.studentNumber" placeholder="学号" border="surround" shape="circle" prefixIcon="tags-fill"></u--input>
          </u-form-item>
          <u-form-item prop="password">
-            <u--input v-model="form.password" placeholder="密码" border="surround" shape="circle" prefixIcon="lock-fill"></u--input>
+            <u--input v-model="form.password" type="password" placeholder="密码" border="surround" shape="circle" prefixIcon="lock-fill"></u--input>
          </u-form-item>
          <u-form-item prop="mobile">
             <u--input v-model="form.mobile" placeholder="手机" border="surround" shape="circle" prefixIcon="phone-fill"></u--input>
          </u-form-item>
-         <u-form-item prop="institute">
-            <u--input v-model="form.institute" placeholder="专业" border="surround" shape="circle" prefixIcon="calendar-fill"></u--input>
+         <u-form-item prop="institute" @click="showInstitute = true">
+            <u--input v-model="form.institute" placeholder="专业" border="surround" shape="circle" prefixIcon="calendar-fill" suffixIcon="arrow-right"></u--input>
          </u-form-item>
-         <u-form-item prop="major">
-            <u--input v-model="form.major" placeholder="班级" border="surround" shape="circle" prefixIcon="coupon-fill"></u--input>
+         <u-form-item prop="major" @click="showClass = true">
+            <u--input v-model="form.major" placeholder="班级" border="surround" shape="circle" prefixIcon="coupon-fill" suffixIcon="arrow-right"></u--input>
          </u-form-item>
          <u-form-item>
             <view class="bottom">
@@ -27,11 +27,14 @@
             </view>
          </u-form-item>
       </u--form>
+
+      <u-picker :show="showInstitute" :columns="institutes" @confirm="institutesConfirm" @cancel="showInstitute = false" :closeOnClickOverlay="true"></u-picker>
+      <u-picker :show="showClass" :columns="classList" @confirm="classConfirm" @cancel="showClass = false" :closeOnClickOverlay="true"></u-picker>
    </view>
 </template>
 
 <script>
-import { signIn_API } from "@service/api";
+import { signIn_API, getInstitutes_API, getclass_API } from "@service/api";
 export default {
    data() {
       return {
@@ -51,7 +54,18 @@ export default {
             institute: { type: "string", required: true, message: "请输入专业", trigger: ["blur", "change"] },
             major: { type: "string", required: true, message: "请输入班级", trigger: ["blur", "change"] },
          },
+         institutes: [],
+         classList: [],
+         showInstitute: false,
+         showClass: false,
       };
+   },
+   onShow() {
+      uni.clearStorage();
+      uni.clearStorageSync();
+   },
+   created() {
+      this.getInstitutes();
    },
    methods: {
       login() {
@@ -59,11 +73,39 @@ export default {
             if (status) {
                signIn_API(this.form).then(res => {
                   if (res.code === 0 || res.code === 200) {
-                     uni.mix_jumpUrl("/pages/common/login");
+                     this.mix_jumpUrl("/pages/common/login");
                   }
                });
             }
          });
+      },
+      getInstitutes() {
+         getInstitutes_API().then(res => {
+            const { code, institutes } = res;
+            if (code === 0 || code === 200) {
+               this.institutes.push(institutes);
+            }
+         });
+      },
+      institutesConfirm(e) {
+         const { value } = e;
+         const institute = value[0];
+         this.form.institute = institute;
+         this.showInstitute = false;
+
+         getclass_API({ institute: institute }).then(res => {
+            console.log(res);
+            const { code, classList } = res;
+            if (code === 0 || code === 200) {
+               this.classList.push(classList);
+            }
+         });
+      },
+      classConfirm(e) {
+         const { value } = e;
+         const major = value[0];
+         this.form.major = major;
+         this.showClass = false;
       },
    },
 };

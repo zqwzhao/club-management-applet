@@ -8,7 +8,8 @@
          </view>
          <view class="isLogin" v-else @click="mix_jumpUrl('/pages/my/userInfo')">
             <view class="info">
-               <image :src="userInfo.avatar" mode="aspectFit" />
+               <image v-if="userInfo.picture" :src="userInfo.picture" mode="aspectFit" />
+               <image v-else src="../../static/image/nullUser.png" mode="aspectFit" />
                <view>
                   <text class="name">{{ userInfo.nickname }}</text>
                   <text class="phone">{{ userInfo.mobile }}</text>
@@ -44,13 +45,13 @@
             <text>我的服务</text>
          </view>
          <view class="serveList">
-            <view class="item">
+            <view class="item" @click="mix_jumpUrl('/pages/my/userInfo')">
                <image :src="require('@/static/image/people.svg')" mode="widthFix" />
                <text>我的信息</text>
             </view>
             <view v-if="isLogin" class="item" @click="exit">
                <image :src="require('@/static/image/logout.svg')" mode="widthFix" />
-               <text>退出系统</text>
+               <text>退出登录</text>
             </view>
          </view>
       </view>
@@ -85,6 +86,7 @@ export default {
       }),
    },
    onShow() {
+      console.log(111);
       this.isLogin = Boolean(this.token) || false;
    },
    methods: {
@@ -109,6 +111,7 @@ export default {
             content: "退出登录？",
             success: ({ confirm }) => {
                if (confirm) {
+                  uni.clearStorage();
                   uni.clearStorageSync();
                   this.isLogin = false;
                }

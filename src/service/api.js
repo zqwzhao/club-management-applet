@@ -11,6 +11,17 @@ export function signIn_API(params) {
    return post("/club-management/app/register", params);
 }
 
+/**获取系别 */
+export function getInstitutes_API() {
+   return get("/club-management/sys/config/institutes")
+}
+
+/**获取班级 */
+export function getclass_API(params) {
+   console.log(params);
+   return get("/club-management/sys/config/class/list", params)
+}
+
 /**获取信息 */
 export function getUserInfo_API(params) {
    return post(`/club-management/app/account/applet/info`, qs.stringify(params));
@@ -21,10 +32,26 @@ export function getClubInfo_API(params) {
    return post(`/club-management/api/club/applet/info/${params}`);
 }
 
+/**获取专业和类别 */
+export function getTypeAndInstitute_API() {
+   return get("/club-management/api/club/applet/club-type-institute");
+}
+
 /**加入社团 */
 export function joinInClub_API(params) {
    return post("/club-management/api/clubapply/applet/add", qs.stringify(params));
 }
+
+/**获取活动信息 */
+export function getActivityInfo_API(params) {
+   return get(`/club-management/api/activity/applet/info/${params}`)
+}
+
+/**申请参加活动 */
+export function joinInActivity_API(params) {
+   return post("/club-management/api/activityapply/applet/add", qs.stringify(params));
+}
+
 
 /**获取轮播图 */
 export function getSwiperListAPI() {

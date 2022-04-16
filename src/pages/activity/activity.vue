@@ -1,22 +1,21 @@
 <template>
    <view class="mainBox">
-      <u-list @scrolltolower="scrolltolower">
-         <u-list-item v-for="(item, index) in newsList" :key="index">
-            <div class="newsItem">
-               <image :src="item.img" mode="widthFix" />
-               <view class="itemInfo">
-                  <text class="title">{{ item.activityName }}</text>
-                  <text class="summary">{{ item.activityDescribe }}</text>
-               </view>
-            </div>
-         </u-list-item>
-         <u-list-item>
-            <div class="bottom">
-               <u-loading-icon v-if="loading" text="加载中" size="14" textSize="14"></u-loading-icon>
-               <text v-else>没有更多了~</text>
-            </div>
-         </u-list-item>
-      </u-list>
+      <scroll-view class="newsList" scroll-y="true" @scrolltolower="scrolltolower">
+         <div class="newsItem" v-for="(item, index) in newsList" :key="index">
+            <image :src="item.activityImage" mode="widthFix" />
+            <view class="itemInfo">
+               <text class="title">{{ item.activityName }}</text>
+               <text class="summary">{{ item.activityDescribe }}</text>
+            </view>
+            <view class="join">
+               <u-button type="primary" text="查看活动" size="mini" @click="mix_jumpUrl('/pages/activity/activityInfo', item)"></u-button>
+            </view>
+         </div>
+         <view class="load">
+            <u-loading-icon v-if="loading" size="18" text="加载中" textSize="16"></u-loading-icon>
+            <text v-else>没有更多了</text>
+         </view>
+      </scroll-view>
    </view>
 </template>
 
@@ -79,54 +78,59 @@ export default {
    width: 100vw;
    box-sizing: border-box;
 
-   .newsItem {
-      width: 100%;
-      margin: auto;
-      box-sizing: border-box;
-      padding: 20rpx 6vw;
-      border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      image {
-         width: 160rpx;
-         height: 100rpx;
-         vertical-align: top;
-         flex-shrink: 0;
-         margin-right: 7px;
-      }
-      .itemInfo {
-         flex: 1;
-         .title {
-            display: block;
-            max-width: 100%;
-            font-size: 28rpx;
-            font-weight: 600;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+   .newsList {
+      width: 100vw;
+      height: 100vh;
+      .newsItem {
+         width: 100%;
+         margin: auto;
+         box-sizing: border-box;
+         padding: 20rpx 6vw;
+         border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         image {
+            width: 160rpx;
+            height: 100rpx;
+            vertical-align: top;
+            flex-shrink: 0;
+            margin-right: 7px;
          }
-         .summary {
-            max-width: 100%;
-            font-size: 26rpx;
-            color: #333333;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            opacity: 0.75;
+         .itemInfo {
+            flex: 1;
+            .title {
+               display: block;
+               max-width: 100%;
+               font-size: 28rpx;
+               font-weight: 600;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               display: -webkit-box;
+               -webkit-line-clamp: 2;
+               -webkit-box-orient: vertical;
+            }
+            .summary {
+               max-width: 100%;
+               font-size: 26rpx;
+               color: #333333;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               display: -webkit-box;
+               -webkit-line-clamp: 2;
+               -webkit-box-orient: vertical;
+               opacity: 0.75;
+            }
          }
       }
    }
 
-   .bottom {
+   .load {
       width: 100vw;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-bottom: 50px;
 
       text {
          opacity: 0.5;
