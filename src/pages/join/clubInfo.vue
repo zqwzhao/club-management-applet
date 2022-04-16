@@ -1,6 +1,6 @@
 <template>
    <view class="mainBox">
-      <image class="bgimg" :src="clubInfo.logo" mode="aspectFill" />
+      <image class="bgimg" :src="clubInfo.clubLogo" mode="aspectFill" />
       <view class="introduce">
          <view class="nameBox cardShadow">
             <view class="nameBox_left">
@@ -34,15 +34,16 @@
             <u-button text="立即加入社团" type="primary" shape="circle" size="small"></u-button>
          </view>
       </view>
+      <u-notify ref="uNotify" message="申请成功，前往我的页面查看审核状态"></u-notify>
    </view>
 </template>
 
 <script>
-import { getClubInfo_API } from "@/service/api";
+import { getClubInfo_API, joinInClub_API } from "@/service/api";
 export default {
    data() {
       return {
-         clubInfo: null,
+         clubInfo: {},
          clubId: "",
       };
    },
@@ -53,18 +54,50 @@ export default {
    },
    methods: {
       getClubInfo(clubId) {
-         const { code, club } = getClubInfo_API(clubId);
-         if (code === 0 || code === 200) {
-            this.clubInfo = club;
-         }
+         getClubInfo_API(clubId).then(res => {
+            const { code, club } = res;
+            if (code === 0 || code === 200) {
+               this.clubInfo = club;
+               console.log(this.clubInfo);
+            }
+         });
       },
 
       joinClub() {
          const token = this.$store.state.token;
          if (token) {
-            this.mix_jumpUrl("/pages/join/joinIn", { clubId: this.clubId });
+            uni.showModal({
+               title: "提示",
+               content: "确认加入当前社团？",
+               success: ({ confirm }) => {
+                  if (confirm) {
+                     joinInClub_API({
+                        accountId: this.$store.state.userInfo.accountId,
+                        clubid: this.clubId,
+                     }).then(({ code }) => {
+                        if (code === 0 || code === 200) {
+                           this.$refs.uNotify.show({
+                              top: 10,
+                              type: "error",
+                              color: "#000",
+                              bgColor: "#e8e8e8",
+                              duration: 1000 * 3,
+                              fontSize: 20,
+                              safeAreaInsetTop: true,
+                           });
+                        }
+                     });
+                  }
+               },
+            });
          } else {
-            this.mix_jumpUrl("/pages/common/login");
+            uni.showModal({
+               title: "提示",
+               content: "尚未登录，是否登录？",
+               success: ({ confirm }) => {
+                  if (confirm) this.mix_jumpUrl("/pages/common/login");
+               },
+            });
          }
       },
    },

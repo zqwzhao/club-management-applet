@@ -45,7 +45,7 @@
 
       <view class="newActivity">
          <view class="newsItem" v-for="(item, index) in newsList" :key="index">
-            <image v-if="Boolean(item.activityImage)" :src="item.img" mode="widthFix" />
+            <image v-if="Boolean(item.activityImage)" :src="item.activityImage" mode="widthFix" />
             <view>
                <text class="title">{{ item.activityName }}</text>
                <text class="summary">{{ item.activityDescribe }}</text>
@@ -190,7 +190,6 @@ export default {
          margin: 5px;
          display: flex;
          align-items: center;
-         justify-content: space-between;
          border-radius: 5rpx;
          box-shadow: 0 0 5px 1px rgba($color: #000000, $alpha: 0.1);
          box-sizing: border-box;

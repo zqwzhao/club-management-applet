@@ -6,7 +6,7 @@
       <u-list class="content" height="calc(100vh - 44px)">
          <u-list-item v-for="(item, index) in contentList" :key="index">
             <view class="newsItem">
-               <image :src="item.img" mode="widthFix" />
+               <image :src="item.activityImage" mode="widthFix" />
                <view class="itemInfo">
                   <text class="title">{{ item.activityName }}</text>
                   <text class="summary">{{ item.activityDescribe }}</text>
@@ -42,7 +42,7 @@ export default {
    },
    onLoad(params) {
       this.current = params.index;
-      this.getList(this.current);
+      this.getList(this.current * 1);
    },
 
    methods: {
@@ -50,22 +50,29 @@ export default {
          this.getList(index);
       },
       getList(index = 0) {
-         var method = () => {};
+         const accountId = this.$store.state.userInfo.accountId;
          switch (index) {
             case 0:
-               method = getJoinedActivity_API;
+               getJoinedActivity_API({ accountId }).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.contentList = res.data;
+                  }
+               });
                break;
             case 1:
-               method = getAuditActivity_API;
+               getAuditActivity_API({ accountId }).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.contentList = res.data;
+                  }
+               });
                break;
             case 2:
-               method = getEndActivity_API;
+               getEndActivity_API({ accountId }).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.contentList = res.data;
+                  }
+               });
                break;
-         }
-         const accountId = this.$store.state.userInfo.accountId;
-         const res = method({ accountId });
-         if (res.code === 0 || res.code === 200) {
-            this.contentList = res.list;
          }
       },
    },

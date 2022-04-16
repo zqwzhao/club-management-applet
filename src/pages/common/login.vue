@@ -26,8 +26,8 @@ export default {
    data() {
       return {
          form: {
-            studentNumber: null,
-            password: null,
+            studentNumber: "20122002066",
+            password: "159357",
          },
          formRules: {
             studentNumber: { type: "string", required: true, message: "请输入学号", trigger: ["blur", "change"] },
@@ -45,18 +45,20 @@ export default {
       login() {
          this.$refs.form.validate().then(status => {
             if (status) {
-               const res = login_API(this.form);
-               if (res.code === 0 || res.code === 200) {
-                  this.setToken(res.token);
+               login_API(this.form).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.setToken(res.token);
 
-                  getUserInfo_API({ accountId: res.accountId }).then(res => {
-                     const { code, account } = res;
-                     if (code === 0 || code === 200) {
-                        this.setUserInfo(account);
-                        this.mix_jumpUrl("pages/home/home");
-                     }
-                  });
-               }
+                     getUserInfo_API({ accountId: res.accountId }).then(res => {
+                        const { code, account } = res;
+                        if (code === 0 || code === 200) {
+                           this.setUserInfo(account);
+                           console.log(1);
+                           this.mix_jumpUrl("/pages/home/home");
+                        }
+                     });
+                  }
+               });
             }
          });
       },

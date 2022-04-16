@@ -10,7 +10,7 @@
             <view class="info">
                <image :src="userInfo.avatar" mode="aspectFit" />
                <view>
-                  <text class="name">{{ userInfo.nickName }}</text>
+                  <text class="name">{{ userInfo.nickname }}</text>
                   <text class="phone">{{ userInfo.mobile }}</text>
                </view>
             </view>
@@ -48,7 +48,7 @@
                <image :src="require('@/static/image/people.svg')" mode="widthFix" />
                <text>我的信息</text>
             </view>
-            <view v-if="isLogin" class="item">
+            <view v-if="isLogin" class="item" @click="exit">
                <image :src="require('@/static/image/logout.svg')" mode="widthFix" />
                <text>退出系统</text>
             </view>
@@ -69,7 +69,7 @@ export default {
          clubTabList: [
             { name: "已加入", index: 0, img: require("@/static/image/afferent.svg") },
             { name: "未审核", index: 1, img: require("@/static/image/audit.svg") },
-            { name: "已结束", index: 2, img: require("@/static/image/abnormal.svg") },
+            { name: "已拒绝", index: 2, img: require("@/static/image/abnormal.svg") },
          ],
          activityTabList: [
             { name: "已加入", index: 0, img: require("@/static/image/afferent.svg") },
@@ -84,14 +84,13 @@ export default {
          userInfo: state => state.userInfo,
       }),
    },
-   onLoad() {
+   onShow() {
       this.isLogin = Boolean(this.token) || false;
    },
    methods: {
       jumpUrl(url = "", obj = {}) {
          const token = this.$store.state.token;
          const userInfo = this.$store.state.userInfo;
-         console.log(token, userInfo);
          if (Boolean(token) && Boolean(userInfo)) {
             this.mix_jumpUrl(url, obj);
          } else {
@@ -103,6 +102,18 @@ export default {
                },
             });
          }
+      },
+      exit() {
+         uni.showModal({
+            title: "提示",
+            content: "退出登录？",
+            success: ({ confirm }) => {
+               if (confirm) {
+                  uni.clearStorageSync();
+                  this.isLogin = false;
+               }
+            },
+         });
       },
    },
 };

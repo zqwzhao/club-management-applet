@@ -12,9 +12,6 @@
                   <view class="category">{{ item.category }}</view>
                   <view class="department">{{ item.department }}</view>
                </view>
-               <view class="join">
-                  <u-button type="primary" text="加入社团" size="mini" @click="mix_jumpUrl('/pages/join/clubInfo', item)"></u-button>
-               </view>
             </view>
          </u-list-item>
 
@@ -34,7 +31,7 @@ import { getJoinedClub_API, getAuditClub_API, getEndClub_API } from "@/service/a
 export default {
    data() {
       return {
-         list: [{ name: "已加入" }, { name: "未审批" }, { name: "已结束" }],
+         list: [{ name: "已加入" }, { name: "未审批" }, { name: "已拒绝" }],
          contentList: [],
          itemStyle: {
             width: "33.33%",
@@ -46,30 +43,36 @@ export default {
    },
    onLoad(params) {
       this.current = params.index;
-      this.getList(this.current);
+      this.getList(this.current * 1);
    },
-
    methods: {
       handlerClick({ index }) {
          this.getList(index);
       },
       getList(index = 0) {
-         var method = () => {};
+         const accountId = this.$store.state.userInfo.accountId;
          switch (index) {
             case 0:
-               method = getJoinedClub_API;
+               getJoinedClub_API({ accountId }).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.contentList = res.data;
+                  }
+               });
                break;
             case 1:
-               method = getAuditClub_API;
+               getAuditClub_API({ accountId }).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.contentList = res.data;
+                  }
+               });
                break;
             case 2:
-               method = getEndClub_API;
+               getEndClub_API({ accountId }).then(res => {
+                  if (res.code === 0 || res.code === 200) {
+                     this.contentList = res.data;
+                  }
+               });
                break;
-         }
-         const accountId = this.$store.state.userInfo.accountId;
-         const res = method({ accountId });
-         if (res.code === 0 || res.code === 200) {
-            this.contentList = res.list;
          }
       },
    },

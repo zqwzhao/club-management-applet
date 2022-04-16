@@ -18,7 +18,12 @@ export function getUserInfo_API(params) {
 
 /**获取社团信息 */
 export function getClubInfo_API(params) {
-   return post(`/club-management/api/club/applet/info/${params}`)
+   return post(`/club-management/api/club/applet/info/${params}`);
+}
+
+/**加入社团 */
+export function joinInClub_API(params) {
+   return post("/club-management/api/clubapply/applet/add", qs.stringify(params));
 }
 
 /**获取轮播图 */
