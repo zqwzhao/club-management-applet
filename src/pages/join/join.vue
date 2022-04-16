@@ -43,6 +43,7 @@
 
 <script>
 import { getClubListAPI, getTypeAndInstitute_API } from "@/service/api.js";
+
 export default {
    data() {
       return {
@@ -56,7 +57,7 @@ export default {
          institutePopupStyle: "",
          form: {
             clubName: "",
-            currPage: 1,
+            page: 1,
             clubType: "社团分类",
             clubInstitute: "管理部门",
          },
@@ -88,12 +89,10 @@ export default {
 
       getClubList(type = false) {
          this.loading = true;
-         if (!type) this.form.currPage = 1;
+         if (!type) this.form.page = 1;
          let sendData = { ...this.form };
          if (sendData.clubType === "社团分类") sendData.clubType = "";
          if (sendData.clubInstitute === "管理部门") sendData.clubInstitute = "";
-
-         console.log(sendData);
 
          getClubListAPI(sendData)
             .then(({ code, page }) => {
@@ -113,8 +112,8 @@ export default {
       },
 
       scrolltolower() {
-         if (this.form.currPage < this.totalPage && !this.loading) {
-            this.form.currPage = ++this.form.currPage;
+         if (this.form.page < this.totalPage && !this.loading) {
+            this.form.page = ++this.form.page;
             this.getClubList(true);
          }
       },

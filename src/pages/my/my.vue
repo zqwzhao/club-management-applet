@@ -86,7 +86,6 @@ export default {
       }),
    },
    onShow() {
-      console.log(111);
       this.isLogin = Boolean(this.token) || false;
    },
    methods: {

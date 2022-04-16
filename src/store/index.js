@@ -10,11 +10,11 @@ export default new Vuex.Store({
    },
    mutations: {
       setToken(state, val) {
-         state = val
+         state.token = val
          uni.setStorageSync("token", val);
       },
       setUserInfo(state, val) {
-         state = val
+         state.userInfo = val
          uni.setStorageSync("userInfo", val);
       },
    },

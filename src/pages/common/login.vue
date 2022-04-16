@@ -56,8 +56,7 @@ export default {
                         const { code, account } = res;
                         if (code === 0 || code === 200) {
                            this.setUserInfo(account);
-                           console.log(1);
-                           this.mix_jumpUrl("/pages/home/home");
+                           uni.reLaunch({ url: "/pages/home/home" });
                         }
                      });
                   }

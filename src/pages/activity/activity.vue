@@ -25,48 +25,38 @@ export default {
    data() {
       return {
          newsList: [],
-         currPage: 1,
+         page: 1,
          totalPage: 10,
          loading: false,
       };
    },
-   watch: {
-      currPage: {
-         handler(val) {
-            if (val === this.totalPage) {
-            }
-         },
-         immediate: true,
-      },
-   },
    created() {
-      this.getNewsList();
+      this.getNewsList(true);
    },
    methods: {
-      getNewsList() {
-         getNewsListAPI().then(({ code, page: { list, currPage, totalPage } }) => {
-            if (code === 0 || code === 200) {
-               this.newsList = list;
-               this.currPage = currPage;
-               this.totalPage = totalPage;
-            }
-         });
+      getNewsList(type = false) {
+         const sendData = {
+            page: this.page,
+         };
+         getNewsListAPI(sendData)
+            .then(({ code, page: { list, currPage, totalPage } }) => {
+               if (code === 0 || code === 200) {
+                  this.newsList.push(...list);
+                  if (type) this.page = currPage;
+                  this.totalPage = totalPage;
+               }
+               this.loading = false;
+            })
+            .catch(() => {
+               this.loading = false;
+            });
       },
 
       scrolltolower() {
-         if (this.currPage != this.totalPage && !this.loading) {
+         if (this.currPage < this.totalPage && !this.loading) {
             this.loading = true;
             this.currPage = ++this.currPage;
-            getNewsListAPI().then(({ code, page: { list, totalPage } }) => {
-               if (code === 0 || code === 200) {
-                  this.totalPage = totalPage;
-
-                  list.forEach(item => {
-                     this.newsList.push(item);
-                  });
-                  this.loading = false;
-               }
-            });
+            this.getNewsList();
          }
       },
    },

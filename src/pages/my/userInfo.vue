@@ -13,13 +13,13 @@
          <u-form-item label="手机" prop="mobile" borderBottom>
             <u-input v-model="form.mobile" border="none"></u-input>
          </u-form-item>
-         <u-form-item label="性别" prop="gender">
+         <!-- <u-form-item label="性别" prop="gender">
             <u-radio-group v-model="form.gender">
                <u-radio label="男" name="男" value="男"></u-radio>
                <u-radio label="女" name="女" value="女"></u-radio>
             </u-radio-group>
-         </u-form-item>
-         <u-form-item label="系别" prop="studentName">
+         </u-form-item> -->
+         <u-form-item label="系别" prop="studentName" borderBottom>
             <u-input v-model="form.institute" border="none"></u-input>
          </u-form-item>
          <u-form-item label="班级" prop="studentName">
