@@ -38,7 +38,7 @@
             <u-button text="立即参加活动" type="primary" shape="circle" size="small"></u-button>
          </view>
       </view>
-      <u-notify ref="uNotify" message="申请成功，前往我的页面查看审核状态"></u-notify>
+      <u-notify ref="uNotify"></u-notify>
    </view>
 </template>
 
@@ -80,13 +80,10 @@ export default {
                      }).then(({ code }) => {
                         if (code === 0 || code === 200) {
                            this.$refs.uNotify.show({
-                              top: 10,
-                              type: "error",
-                              color: "#000",
-                              bgColor: "#e8e8e8",
+                              type: "primary",
+                              message: "申请成功，前往我的页面查看审核状态",
                               duration: 1000 * 3,
-                              fontSize: 20,
-                              safeAreaInsetTop: true,
+                              fontSize: 16,
                            });
                         }
                      });

@@ -52,7 +52,6 @@ export function joinInActivity_API(params) {
    return post("/club-management/api/activityapply/applet/add", qs.stringify(params));
 }
 
-
 /**获取轮播图 */
 export function getSwiperListAPI() {
    return get("/club-management/api/slide/applet/list");
