@@ -30,7 +30,7 @@ import { getJoinedActivity_API, getAuditActivity_API, getEndActivity_API } from 
 export default {
    data() {
       return {
-         list: [{ name: "已加入" }, { name: "未审批" }, { name: "已结束" }],
+         list: [{ name: "已参加" }, { name: "未审批" }, { name: "已结束" }],
          contentList: [],
          itemStyle: {
             width: "33.33%",

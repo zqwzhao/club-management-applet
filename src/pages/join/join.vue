@@ -155,7 +155,7 @@ export default {
                   item.class = "";
                }
             });
-            this.form.clubType = "全部社团";
+            this.form.clubType = "全部分类";
          }
       },
 

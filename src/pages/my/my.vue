@@ -73,7 +73,7 @@ export default {
             { name: "已拒绝", index: 2, img: require("@/static/image/abnormal.svg") },
          ],
          activityTabList: [
-            { name: "已加入", index: 0, img: require("@/static/image/afferent.svg") },
+            { name: "已参加", index: 0, img: require("@/static/image/afferent.svg") },
             { name: "未审核", index: 1, img: require("@/static/image/audit.svg") },
             { name: "已结束", index: 2, img: require("@/static/image/abnormal.svg") },
          ],

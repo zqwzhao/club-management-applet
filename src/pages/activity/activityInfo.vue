@@ -15,10 +15,10 @@
             开始时间：
             <text>{{ activityInfo.activityStartTime }}</text>
          </text>
-         <!-- <text class="subjection">
+         <text class="subjection">
             结束时间：
             <text>{{ activityInfo.activityEndTime }}</text>
-         </text> -->
+         </text>
          <text class="subjection">
             活动地址：
             <text>{{ activityInfo.activityPosition }}</text>

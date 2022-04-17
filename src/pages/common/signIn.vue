@@ -15,7 +15,7 @@
             <u--input v-model="form.mobile" placeholder="手机" border="surround" shape="circle" prefixIcon="phone-fill"></u--input>
          </u-form-item>
          <u-form-item prop="institute" @click="showInstitute = true">
-            <u--input v-model="form.institute" placeholder="专业" border="surround" shape="circle" prefixIcon="calendar-fill" suffixIcon="arrow-right"></u--input>
+            <u--input v-model="form.institute" placeholder="系别" border="surround" shape="circle" prefixIcon="calendar-fill" suffixIcon="arrow-right"></u--input>
          </u-form-item>
          <u-form-item prop="major" @click="showClass = true">
             <u--input v-model="form.major" placeholder="班级" border="surround" shape="circle" prefixIcon="coupon-fill" suffixIcon="arrow-right"></u--input>
@@ -51,8 +51,8 @@ export default {
             studentNumber: { type: "string", required: true, message: "请输入学号", trigger: ["blur", "change"] },
             password: { type: "string", required: true, message: "请输入密码", trigger: ["blur", "change"] },
             mobile: { type: "string", required: true, message: "请输入手机", trigger: ["blur", "change"] },
-            institute: { type: "string", required: true, message: "请输入专业", trigger: ["blur", "change"] },
-            major: { type: "string", required: true, message: "请输入班级", trigger: ["blur", "change"] },
+            institute: { type: "string", required: true, message: "请选择系别", trigger: ["blur", "change"] },
+            major: { type: "string", required: true, message: "请选择班级", trigger: ["blur", "change"] },
          },
          institutes: [],
          classList: [],
