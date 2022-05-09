@@ -74,11 +74,19 @@ export default {
                      joinInClub_API({
                         accountId: this.$store.state.userInfo.accountId,
                         clubId: this.clubId,
-                     }).then(({ code }) => {
+                     }).then(({ code, msg }) => {
                         if (code === 0 || code === 200) {
                            this.$refs.uNotify.show({
                               type: "primary",
                               message: "申请成功，前往我的页面查看审核状态",
+                              duration: 1000 * 3,
+                              fontSize: 16,
+                           });
+                        }
+                        if (code === 500) {
+                           this.$refs.uNotify.show({
+                              type: "primary",
+                              message: msg,
                               duration: 1000 * 3,
                               fontSize: 16,
                            });
