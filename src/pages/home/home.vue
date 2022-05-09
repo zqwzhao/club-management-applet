@@ -33,7 +33,7 @@
             <view class="leftLine"></view>
             <text>社团活动</text>
          </view>
-         <view class="more">
+         <view class="more" @click="mix_jumpUrl('/pages/activity/activity')">
             <text>更多</text>
             <view class="arr">
                <u-icon name="arrow-right" size="14" color="#333333"></u-icon>
