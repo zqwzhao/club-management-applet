@@ -31,7 +31,7 @@
       <view class="columnTitle">
          <view class="label">
             <view class="leftLine"></view>
-            <text>社团活动</text>
+            <text>活动推荐</text>
          </view>
          <view class="more" @click="mix_jumpUrl('/pages/activity/activity')">
             <text>更多</text>
